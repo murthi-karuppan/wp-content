@@ -22,5 +22,20 @@ if ( version_compare( $GLOBALS['wp_version'], '4.7-alpha', '<' ) ) {
 	require get_template_directory() . '/inc/back-compat.php';
 	return;
 }
-            
+    
+    -------
+    menu
+    ********
+    register_nav_menus( array(
+        'primary' => __( 'Primary Menu', 'THEMENAME' ),
+) );
+
+function remove_core_updates(){
+    global $wp_version;return(object) array('last_checked'=> time(),'version_checked'=> $wp_version,);
+}
+add_filter('pre_site_transient_update_core','remove_core_updates');
+add_filter('pre_site_transient_update_plugins','remove_core_updates');
+add_filter('pre_site_transient_update_themes','remove_core_updates');
+
+---------------------
             
